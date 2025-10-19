@@ -83,6 +83,8 @@ if __name__ == "__main__":
 
     input_path = sys.argv[1]
     output_path = sys.argv[2]
+    if input_path == output_path:
+        raise RuntimeError(f"Expected different input and output paths")
 
     base_dir = Path(__file__).parent
 
