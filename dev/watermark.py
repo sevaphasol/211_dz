@@ -6,6 +6,7 @@ from reportlab.lib.colors import Color
 import io
 import sys
 from pathlib import Path
+import argparse
 
 def create_overlay(watermark_text,
                    link_text,
@@ -78,11 +79,15 @@ def add_watermark_and_link_to_pdf(input_path,
 
 # === Пример использования ===
 if __name__ == "__main__":
-    if len(sys.argv) != 3:
-        raise RuntimeError("Unexpected amount of parameters")
+    parser = argparse.ArgumentParser()
+    parser.add_argument("-i", "--input", dest="input_path", required=True,
+                        help="Input PDF file path")
+    parser.add_argument("-o", "--output", dest="output_path", required=True,
+                        help="Output PDF file path")
+    args = parser.parse_args()
 
-    input_path = sys.argv[1]
-    output_path = sys.argv[2]
+    input_path = args.input_path
+    output_path = args.output_path
     if input_path == output_path:
         raise RuntimeError(f"Expected different input and output paths")
 
